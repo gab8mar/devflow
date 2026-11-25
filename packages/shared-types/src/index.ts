@@ -31,3 +31,15 @@ export interface DailyTotalDto {
   totalSeconds: number;
   entryCount: number;
 }
+
+export interface TaskDto {
+  id: string;
+  projectId: string;
+  projectName: string;
+  projectCode: string;
+  projectColor: string;
+  title: string;
+  externalId: string | null;
+  lastUsedAt: number | null;
+  isLocal: boolean;
+}

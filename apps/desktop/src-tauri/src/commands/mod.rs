@@ -1,5 +1,6 @@
 pub mod health;
 pub mod preferences;
+pub mod tasks;
 pub mod timer;
 
 use serde::Serialize;

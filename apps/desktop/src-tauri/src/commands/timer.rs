@@ -1,5 +1,6 @@
-use devtime_application::ports::{ActiveEntry, DailyTotal};
+use devtime_application::ports::{ActiveEntry, DailyTotal, Tasks};
 use devtime_application::use_cases::timer::{self, DEFAULT_TASK_ID};
+use devtime_application::ApplicationError;
 use devtime_domain::EntryStatus;
 use serde::Serialize;
 use tauri::State;
@@ -58,6 +59,14 @@ pub fn start_task(
     let task_id = task_id
         .filter(|value| !value.trim().is_empty())
         .unwrap_or_else(|| DEFAULT_TASK_ID.to_string());
+    let task_exists = state
+        .db
+        .find_task(&task_id)
+        .map_err(ApplicationError::from)?
+        .is_some();
+    if !task_exists {
+        return Err(ApplicationError::TaskNotFound.into());
+    }
     let entry_id = Uuid::now_v7().to_string();
 
     timer::start(state.db.as_ref(), state.clock.now_ms(), &task_id, &entry_id)?;

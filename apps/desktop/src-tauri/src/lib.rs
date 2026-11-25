@@ -42,7 +42,9 @@ pub fn run() {
             commands::timer::pause_current,
             commands::timer::resume_current,
             commands::timer::close_current,
-            commands::timer::get_today_totals
+            commands::timer::get_today_totals,
+            commands::tasks::list_tasks,
+            commands::tasks::create_task
         ])
         .run(tauri::generate_context!())
         .expect("no se pudo iniciar DevTime");

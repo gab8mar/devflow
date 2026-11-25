@@ -7,12 +7,14 @@ constancia en la [bitácora](bitacora/BITACORA.md).
 ## Estado actual (2026-11-25)
 
 - **F1 cerrada** (CI escrita, pendiente de primera ejecución en Azure): Tauri 2.12 + React 19 +
-  Rust + SQLite WAL, ventana 132×28, build release de 4.00 MB.
+  Rust + SQLite WAL, ventana 132×28 arrastrable, build release de 4.22 MB.
 - **F2 núcleo implementado:** cronómetro persistente con iniciar/cambiar, pausar, reanudar,
-  finalizar, recuperación por heartbeat y totales diarios; UI conectada y E2E con clic real.
-- **Verificación:** 31 pruebas Rust + 8 frontend, `fmt`/`clippy`/`lint`/`typecheck`/build en verde.
-- **Pendiente de F2:** CRUD de proyectos/tareas, `ActivityEvent`, solapamientos, cobertura y
-  pruebas de propiedad/concurrencia. Después: F3 (switcher y UI flotante).
+  finalizar, recuperación por heartbeat y totales diarios; catálogo de tareas con alta local y
+  selector conectado; UI y E2E con entrada real.
+- **Verificación:** 38 pruebas Rust + 8 frontend, `fmt`/`clippy`/`lint`/`typecheck`/build en verde.
+- **Pendiente de F2:** integración con el PWA (contrato Q1), CRUD completo de proyectos/tareas,
+  `ActivityEvent`, solapamientos, cobertura y pruebas de propiedad/concurrencia. Después: F3
+  (búsqueda, proyectos, hover y temas).
 - El detalle cronológico está en la [bitácora](bitacora/BITACORA.md); el tablero de fases, en el
   [plan](plan/PLAN-DESARROLLO.md).
 

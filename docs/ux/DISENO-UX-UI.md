@@ -25,9 +25,10 @@ Filosofía: **"Visible cuando se necesita. Invisible cuando se está trabajando.
 - Sin borde visible con el tema oscuro; sombra suave.
 - Al pasar el mouse, se expande (150 ms) a hover.
 
-**Implementado en F2:** píldora de 132×28 con icono SVG, duración, punto de estado y botón;
-clic en el botón inicia/pausa/reanuda, clic en el resto arrastra. Hover, switcher y menú
-contextual siguen pendientes de F3.
+**Implementado en F2:** píldora de 132×28 con icono SVG, duración, punto de estado, botón y
+caret para abrir tareas; clic en el botón inicia/pausa/reanuda y el resto arrastra. El arrastre
+requiere `core:window:allow-start-dragging` en la capability de Tauri. Hover y menú contextual
+siguen pendientes de F3.
 
 ### 2.2 Hover / expandido
 
@@ -72,6 +73,11 @@ contextual siguen pendientes de F3.
 - `Esc` cierra sin cambios; las flechas navegan; `Tab` recorre.
 - La tarea actual aparece marcada con ✓ y su tiempo acumulado.
 - "＋ Nueva tarea" discreto al final de la lista (MVP: alta rápida de título).
+
+**Implementado parcial (2026-11-25):** selector de 320×360 con lista de tareas activas, tarea
+actual marcada, uso reciente primero, etiqueta `Local`/`PWA` y alta local con `Enter`/`Crear`.
+Al seleccionar, la ventana vuelve a 132×28. Pendientes: búsqueda, lista de proyectos, botón
+"Guardar y cambiar" y navegación por teclado.
 
 ### 2.4 Minimizado
 

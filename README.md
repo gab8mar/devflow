@@ -6,15 +6,17 @@ Aplicación de escritorio Windows, ligera y no invasiva, que registra el tiempo 
 invertido por tarea y prepara el llenado automático del Timesheet corporativo.
 
 **Estado actual:** Fase 2 en curso — cronómetro persistente end-to-end (iniciar, pausar,
-reanudar, finalizar, recuperación tras cierre y totales diarios) con ventana flotante
-funcional. Siguiente: CRUD de proyectos/tareas, historial de actividad y switcher de F3.
+reanudar, finalizar, recuperación tras cierre y totales diarios), ventana flotante arrastrable
+y catálogo de tareas con alta local. Siguiente: integración del PWA, CRUD de proyectos/tareas,
+historial de actividad y búsqueda del switcher.
 
 Qué funciona hoy:
-- Píldora 132×28 always-on-top con tiempo derivado de SQLite y botón iniciar/pausar/reanudar.
+- Píldora 132×28 always-on-top, arrastrable, con tiempo derivado de SQLite y botón iniciar/pausar/reanudar.
+- Selector de tareas 320×360 con uso reciente primero, tarea actual marcada y alta local.
 - Persistencia de entradas (`running`/`paused`/`closed`) y cambio de tarea transaccional.
 - Recuperación tras cierre inesperado usando el último heartbeat (umbral 120 s) y heartbeat cada 60 s.
 - Totales diarios por proyecto/tarea (comando `get_today_totals`) y workspace `General` por defecto.
-- E2E real verificado en debug y release: `running` → `paused` con clic sobre la píldora.
+- E2E real verificado en release: arrastre, pausa con clic, selector y alta local con entrada asociada.
 
 ## Arranque rápido
 

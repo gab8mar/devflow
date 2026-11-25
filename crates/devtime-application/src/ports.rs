@@ -38,6 +38,39 @@ pub struct DailyTotal {
     pub entry_count: i64,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TaskSummary {
+    pub id: String,
+    pub project_id: String,
+    pub project_name: String,
+    pub project_code: String,
+    pub project_color: String,
+    pub title: String,
+    pub external_id: Option<String>,
+    pub last_used_at: Option<i64>,
+}
+
+impl TaskSummary {
+    pub fn is_local(&self) -> bool {
+        self.external_id.is_none()
+    }
+}
+
+pub trait Tasks: Send + Sync {
+    fn list_active(&self) -> Result<Vec<TaskSummary>, RepositoryError>;
+
+    fn find_task(&self, id: &str) -> Result<Option<TaskSummary>, RepositoryError>;
+
+    /// Crea (o devuelve, si ya existe) una tarea local en el proyecto indicado.
+    fn create_local(
+        &self,
+        id: &str,
+        project_id: &str,
+        title: &str,
+        now_ms: i64,
+    ) -> Result<TaskSummary, RepositoryError>;
+}
+
 pub trait TimeEntries: Send + Sync {
     /// Entrada no cerrada más reciente (en curso o pausada).
     fn find_current(&self) -> Result<Option<ActiveEntry>, RepositoryError>;

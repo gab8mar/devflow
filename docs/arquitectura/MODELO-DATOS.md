@@ -90,7 +90,12 @@ Los invariantes 1–4 se complementan con transacciones en los casos de uso; la 
 - `switch(previous, next)` ejecuta en una transacción el cierre de la entrada anterior y la
   inserción de la nueva; nunca hay dos `running`.
 - Si no existe catálogo, `ensure_default_workspace` inserta `project-general` (`General`/`GEN`)
-  y `task-general` (`Trabajo general`) para que la píldora funcione antes del switcher de F3.
+  y `task-general` (`Trabajo general`) para que la píldora funcione desde el primer arranque.
+- El catálogo de tareas ya se lista y crea: `Tasks::list_active` ordena por uso reciente con
+  `Trabajo general` al final; `Tasks::create_local` recorta/valida 1–200 caracteres y reutiliza
+  una tarea existente del mismo proyecto si el título coincide.
+- Las tareas locales quedan en `project-general` con `external_id = NULL`; las que importe el
+  PWA usarán `external_id` para no duplicarlas.
 - `activity_history` está creada pero todavía no se escribe (pendiente F2/F4).
 
 ### 3.4 `user_preferences`
@@ -219,6 +224,6 @@ grandes; `VACUUM` solo manual si el archivo crece anómalamente.
 | Repositorio de entradas | Implementado con `find_current`, `save`, `switch` y `daily_totals` |
 | Workspace por defecto | Implementado (`General`/`GEN` + `Trabajo general`) |
 | Vistas `v_daily_totals` / `v_running_entry` | Creadas; totales usados por IPC |
-| CRUD de proyectos/tareas | Pendiente (F2/F3) |
+| Catálogo de tareas | Listar y crear local implementados; editar/archivar y proyectos pendientes (F2/F3) |
 | `activity_history` / `sync_outbox` | Esquema creado; escritura pendiente |
 | Cifrado en reposo (Q3) | Pendiente de decisión; MVP sin cifrar |

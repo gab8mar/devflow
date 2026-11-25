@@ -118,6 +118,21 @@ Reglas:
   - Todo conflicto se muestra en el resumen diario con acción ("Revisar").
 - **Borradores:** el envío puede ser "borrador" o "definitivo" si el sistema lo permite.
 
+### 4.1 Estado actual (2026-11-25): catálogo local listo, importación pendiente
+
+El catálogo de tareas ya existe en local (`list_tasks`/`create_task`); las tareas locales se
+crean en `project-general` con `external_id = NULL` para distinguirlas de las corporativas.
+Falta el contrato real para importar tareas/proyectos del PWA. Datos mínimos necesarios:
+
+| Dato | Para qué |
+|------|----------|
+| URL base del PWA/API | Construir el cliente HTTP |
+| Método de autenticación (SSO/cookie/token) | Evitar guardar credenciales en SQLite |
+| Endpoint de tareas/proyectos | Poblar el catálogo y `external_id` |
+| JSON de respuesta (ejemplo real) | Mapear campos y paginación |
+| IDs externos de proyecto y tarea | Vincular `time_entries` y evitar duplicados |
+| Reglas de red (VPN, proxy, CORS/IPC allowlist) | Definir el transporte permitido desde Rust |
+
 ## 5. Patrón Outbox
 
 ```mermaid

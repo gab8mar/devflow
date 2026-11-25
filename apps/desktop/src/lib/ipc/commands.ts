@@ -43,6 +43,18 @@ export interface DailyTotalDto {
   entryCount: number;
 }
 
+export interface TaskDto {
+  id: string;
+  projectId: string;
+  projectName: string;
+  projectCode: string;
+  projectColor: string;
+  title: string;
+  externalId: string | null;
+  lastUsedAt: number | null;
+  isLocal: boolean;
+}
+
 export interface CommandError {
   code: string;
   message: string;
@@ -82,4 +94,18 @@ export function closeCurrent(): Promise<TimerSnapshotDto> {
 
 export function getTodayTotals(): Promise<DailyTotalDto[]> {
   return invoke<DailyTotalDto[]>("get_today_totals");
+}
+
+export function listTasks(): Promise<TaskDto[]> {
+  return invoke<TaskDto[]>("list_tasks");
+}
+
+export function createTask(
+  title: string,
+  projectId?: string | null,
+): Promise<TaskDto> {
+  return invoke<TaskDto>("create_task", {
+    title,
+    projectId: projectId ?? null,
+  });
 }

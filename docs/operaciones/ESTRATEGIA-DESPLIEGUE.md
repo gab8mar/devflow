@@ -12,8 +12,8 @@
 Objetivo de tamaño: instalador ≤ 15 MB comprimido.
 
 **Estado F1–F2:** todavía no se generan instaladores. `tauri build --no-bundle` produce
-`target/release/devtime-desktop.exe` de **4.00 MB**; el bundle NSIS, la firma y el updater
-quedan para F5.
+`target/release/devtime-desktop.exe` de **4.22 MB** (4.224.000 bytes); el bundle NSIS, la firma
+y el updater quedan para F5.
 
 ## 2. Firma de código
 

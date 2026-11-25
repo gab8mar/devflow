@@ -1,1 +1,1 @@
-{"default":{"identifier":"default","description":"Permisos mínimos de la ventana principal de DevTime","local":true,"windows":["timer"],"permissions":["core:default"]}}
+{"default":{"identifier":"default","description":"Permisos mínimos de la ventana principal de DevTime","local":true,"windows":["timer"],"permissions":["core:default","core:window:allow-start-dragging","core:window:allow-set-size"]}}

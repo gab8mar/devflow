@@ -12,8 +12,8 @@ estimaciones son días-persona e incluyen pruebas y documentación de la fase.
 |------|--------|----------|------|------------|--------|
 | F0 | Descubrimiento y diseño | RFD, arquitectura, UX, datos, plan | 3–4 d | — | **Completada** |
 | F1 | Scaffolding | Monorepo Tauri+React+Rust+SQLite compilando | 3–4 d | F0, Rust instalado | **Completada** (CI pendiente de 1.ª ejecución) |
-| F2 | Dominio y persistencia | Cronómetro y repositorios probados | 4–5 d | F1 | **En curso** (cronómetro end-to-end y totales; pendiente CRUD proyectos/tareas, historial y cobertura) |
-| F3 | UI flotante | Ventana compacta, hover, switcher, temas | 5–6 d | F2 | Pendiente |
+| F2 | Dominio y persistencia | Cronómetro y repositorios probados | 4–5 d | F1 | **En curso** (cronómetro, totales y catálogo de tareas; pendiente CRUD completo, historial y cobertura) |
+| F3 | UI flotante | Ventana compacta, hover, switcher, temas | 5–6 d | F2 | **En curso** (arrastre y selector con alta local; pendiente búsqueda, proyectos y temas) |
 | F4 | Productividad | Inactividad, resumen diario, tray, autostart | 4–5 d | F3 | Pendiente |
 | F5 | Hardening y piloto | Empaquetado, firma, updater, piloto interno | 4–5 d | F4 | Pendiente |
 | F6 | v1.0 Timesheet | Entra ID, ADO, sync real con outbox | 10–15 d | F5, Q1/Q2 | Pendiente |
@@ -76,11 +76,11 @@ Camino completo hasta v3.0: ~65 d-persona + 20 % de contingencia.
 
 **Avance 2026-11-25**
 - [x] `TimeEntry` + máquina de estados + `recover_if_stale` (13 pruebas de dominio).
-- [x] Casos de uso iniciar/cambiar, pausar, reanudar, finalizar, recuperar y totales diarios (9 pruebas).
-- [x] Repositorio SQLite con `switch` transaccional, join proyecto/tarea y totales desde `v_daily_totals` (9 pruebas).
-- [x] Comandos IPC y UI conectada: iniciar/pausar/reanudar con estado real (8 pruebas frontend).
+- [x] Casos de uso iniciar/cambiar, pausar, reanudar, finalizar, recuperar, totales y catálogo de tareas (12 pruebas).
+- [x] Repositorio SQLite con `switch` transaccional, join proyecto/tarea, totales desde `v_daily_totals` y tareas locales (13 pruebas).
+- [x] Comandos IPC y UI conectada: iniciar/pausar/reanudar, selector de tareas y alta local (8 pruebas frontend).
 - [x] Recuperación al arranque (latido perdido > 120 s) y heartbeat cada 60 s.
-- [ ] Entidades/CRUD completos de `Project`/`Task` y `ActivityEvent`.
+- [ ] CRUD completo de `Project`/`Task` (editar, archivar, proyectos) y `ActivityEvent`.
 - [ ] Detección de solapamientos, pruebas de propiedad/concurrencia y cobertura ≥ 80/70 %.
 
 **Criterios de salida**
@@ -99,6 +99,16 @@ Camino completo hasta v3.0: ~65 d-persona + 20 % de contingencia.
 - Switcher proyecto → tarea → "Guardar y cambiar" con búsqueda.
 - Temas claro/oscuro, transparencia, color principal, tipografías.
 - Accesibilidad: teclado, foco visible, contraste, `prefers-reduced-motion`.
+
+**Avance 2026-11-25**
+- [x] Arrastre real corregido: `data-tauri-drag-region` requiere `core:window:allow-start-dragging`;
+  verificado moviendo la ventana de `414,2` a `244,186` con entrada nativa.
+- [x] Selector de tareas 320×360: lista activa, tarea actual marcada, uso reciente primero,
+  etiqueta `Local`/`PWA` y botón `+ Nueva tarea local`.
+- [x] Alta local idempotente por título dentro de `Trabajo general`; `external_id` queda `NULL`
+  para distinguirla de las tareas que importe el PWA.
+- [ ] Búsqueda incremental, selección por proyecto, "Guardar y cambiar", hover, menú contextual,
+  posición recordada, temas y atajos.
 
 **Criterios de salida**
 - Cambiar de tarea en ≤ 2 clics y ≤ 3 s.

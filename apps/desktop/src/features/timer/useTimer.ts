@@ -1,29 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
+﻿import { useCallback, useEffect, useRef, useState } from "react";
 import {
   getTimerSnapshot,
   pauseCurrent,
   resumeCurrent,
-  startTask,
+  startTask as requestStartTask,
   type TimerSnapshotDto,
 } from "../../lib/ipc/commands";
+import { describeError } from "../../lib/ipc/errors";
 
 const POLL_INTERVAL_MS = 15_000;
-
-function describeError(error: unknown): string {
-  if (typeof error === "string") {
-    return error;
-  }
-  if (
-    error &&
-    typeof error === "object" &&
-    "message" in error &&
-    typeof error.message === "string"
-  ) {
-    return error.message;
-  }
-  return "No se pudo actualizar el cronómetro";
-}
 
 export function useTimer() {
   const [snapshot, setSnapshot] = useState<TimerSnapshotDto | null>(null);
@@ -43,7 +28,7 @@ export function useTimer() {
       apply(await getTimerSnapshot());
     } catch (cause) {
       if (mounted.current) {
-        setError(describeError(cause));
+        setError(describeError(cause, "No se pudo actualizar el cronómetro"));
       }
     }
   }, [apply]);
@@ -63,13 +48,13 @@ export function useTimer() {
     try {
       const current = snapshot?.active;
       const next = !current
-        ? await startTask()
+        ? await requestStartTask()
         : current.status === "running"
           ? await pauseCurrent()
           : await resumeCurrent();
       apply(next);
     } catch (cause) {
-      setError(describeError(cause));
+      setError(describeError(cause, "No se pudo actualizar el cronómetro"));
     } finally {
       if (mounted.current) {
         setBusy(false);
@@ -77,5 +62,22 @@ export function useTimer() {
     }
   }, [snapshot, apply]);
 
-  return { snapshot, busy, error, refresh, toggle };
+  const start = useCallback(
+    async (taskId: string) => {
+      setBusy(true);
+      try {
+        apply(await requestStartTask(taskId));
+      } catch (cause) {
+        setError(describeError(cause, "No se pudo actualizar el cronómetro"));
+        throw cause;
+      } finally {
+        if (mounted.current) {
+          setBusy(false);
+        }
+      }
+    },
+    [apply],
+  );
+
+  return { snapshot, busy, error, refresh, toggle, start };
 }

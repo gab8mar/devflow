@@ -94,20 +94,22 @@ devflow/
 │  ├─ src/
 │  │  ├─ main.tsx
 │  │  ├─ app/App.tsx
-│  │  ├─ features/timer/{TimerPill.tsx,useTimer.ts,timer.css}
+│  │  ├─ features/timer/{TimerPill.tsx,TaskPicker.tsx,useTimer.ts,useTasks.ts,timer.css}
 │  │  ├─ lib/format/{duration.ts,duration.test.ts}
-│  │  ├─ lib/ipc/commands.ts
+│  │  ├─ lib/ipc/{commands.ts,errors.ts}
 │  │  ├─ lib/timer/{elapsed.ts,elapsed.test.ts}
 │  │  └─ styles/{tokens.css,globals.css}
-│  └─ src-tauri/src/
-│     ├─ main.rs, lib.rs, state.rs
-│     └─ commands/{mod.rs,health.rs,preferences.rs,timer.rs}
+│  └─ src-tauri/
+│     ├─ src/
+│     │  ├─ main.rs, lib.rs, state.rs
+│     │  └─ commands/{mod.rs,health.rs,preferences.rs,tasks.rs,timer.rs}
+│     └─ capabilities/default.json
 ├─ crates/
 │  ├─ devtime-domain/src/{lib.rs,time_entry.rs}
 │  ├─ devtime-application/src/{lib.rs,errors.rs,ports.rs}
-│  │  └─ use_cases/{mod.rs,preferences.rs,timer.rs}
+│  │  └─ use_cases/{mod.rs,preferences.rs,tasks.rs,timer.rs}
 │  └─ devtime-infrastructure/src/{lib.rs,system.rs}
-│     └─ sqlite/{mod.rs,database.rs,time_entries.rs}
+│     └─ sqlite/{mod.rs,database.rs,time_entries.rs,tasks.rs}
 ├─ packages/shared-types/src/index.ts
 ├─ db/migrations/0001_init.sql
 ├─ docs/, README.md, Cargo.toml, package.json, azure-pipelines.yml
@@ -181,10 +183,23 @@ interface DailyTotalDto {
   totalSeconds: number;
   entryCount: number;
 }
+
+interface TaskDto {
+  id: string;
+  projectId: string;
+  projectName: string;
+  projectCode: string;
+  projectColor: string;
+  title: string;
+  externalId: string | null;
+  lastUsedAt: number | null;
+  isLocal: boolean;
+}
 ```
 
 Comandos actuales: `health_check`, `get_preference`, `set_preference`, `get_timer_snapshot`,
-`start_task`, `pause_current`, `resume_current`, `close_current`, `get_today_totals`.
+`start_task`, `pause_current`, `resume_current`, `close_current`, `get_today_totals`,
+`list_tasks`, `create_task`.
 
 Los DTO viven hoy en `packages/shared-types/src/index.ts` y en `apps/desktop/src/lib/ipc/commands.ts`.
 La generación automática con `tauri-specta` y la validación con Zod están previstas, aún no implementadas.

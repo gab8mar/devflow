@@ -29,6 +29,10 @@ pub enum ApplicationError {
     Domain(#[from] DomainError),
     #[error("no hay una entrada de tiempo activa")]
     NoActiveEntry,
+    #[error("el título de la tarea debe tener entre 1 y 200 caracteres")]
+    InvalidTaskTitle,
+    #[error("la tarea indicada no existe")]
+    TaskNotFound,
     #[error("JSON inválido: {0}")]
     Json(#[from] serde_json::Error),
 }
@@ -41,6 +45,8 @@ impl ApplicationError {
             ApplicationError::Repository(_) => "REPOSITORY_ERROR",
             ApplicationError::Domain(error) => error.code(),
             ApplicationError::NoActiveEntry => "NO_ACTIVE_ENTRY",
+            ApplicationError::InvalidTaskTitle => "INVALID_TASK_TITLE",
+            ApplicationError::TaskNotFound => "TASK_NOT_FOUND",
             ApplicationError::Json(_) => "INVALID_JSON",
         }
     }

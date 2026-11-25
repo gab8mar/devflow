@@ -5,6 +5,39 @@ Formato: fecha · fase · qué se hizo · por qué · dónde · siguiente.
 
 ---
 
+## 2026-11-25 · F2–F3 — Arrastre real, catálogo de tareas y selector
+
+**Contexto:** la píldora se arrastraba solo en desarrollo; en release la región
+`data-tauri-drag-region` era un adorno. Además, el tiempo se registraba siempre contra
+`Trabajo general` porque no existía catálogo de tareas.
+
+**Qué se hizo**
+1. **Arrastre corregido:** la capability `core:window:default` de Tauri 2.12 no incluye
+   `core:window:allow-start-dragging`; se añadió explícitamente (junto con
+   `core:window:allow-set-size`). Verificado con movimiento real: `414,2 → 244,186`.
+2. **Catálogo de tareas:** puerto `Tasks`, casos de uso `list_tasks`/`create_task`, repositorio
+   SQLite (`tasks.rs`), validación de título (1–200 caracteres) y reutilización idempotente por
+   título dentro del proyecto. Las tareas locales usan `project-general` y `external_id = NULL`.
+3. **Selector en la UI:** caret en la píldora, panel 320×360, lista ordenada por uso reciente,
+   tarea actual marcada, etiqueta `Local`/`PWA` y alta local con `Enter`. La ventana vuelve a
+   132×28 al seleccionar.
+4. **Verificación:** `fmt`, `clippy -D warnings`, 38 pruebas Rust, 8 frontend, `npm run check`,
+   `build:nobundle` y build release (4.22 MB). E2E real: alta local "Prueba local" con entrada
+   `running` asociada y limpieza posterior de los datos de prueba.
+
+**Por qué:** el MVP necesita registrar el tiempo contra la tarea correcta y una ventana que
+responda al arrastre en release.
+
+**Dónde:** `apps/desktop/src-tauri/capabilities/default.json`, `commands/tasks.rs`,
+`crates/devtime-application/src/{ports.rs,errors.rs,use_cases/tasks.rs}`,
+`crates/devtime-infrastructure/src/sqlite/tasks.rs`, `apps/desktop/src/features/timer/*`,
+`apps/desktop/src/app/App.tsx`, `packages/shared-types/src/index.ts`.
+
+**Siguiente:** contrato del PWA/Timesheet (URL, autenticación, endpoints, IDs externos) para
+importar tareas reales; luego búsqueda incremental, proyectos, hover y temas de F3.
+
+---
+
 ## 2026-11-23 · F0 — Arranque, planificación y documentación
 
 **Contexto:** repositorio `C:\repos\devflow` vacío (solo `.git`), sin commits. Proyecto Engram

@@ -1,4 +1,5 @@
 mod database;
+mod tasks;
 mod time_entries;
 
 pub use database::{Database, DatabaseError};

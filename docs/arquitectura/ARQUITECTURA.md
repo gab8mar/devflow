@@ -147,9 +147,9 @@ apagado toda la noche.
 
 | Estado | Tamaño (lógicos) | Comportamiento |
 |--------|------------------|----------------|
-| Compacto | 132×28 | **Implementado:** always-on-top, sin decoración, arrastrable; incluye botón iniciar/pausar/reanudar |
+| Compacto | 132×28 | **Implementado:** always-on-top, sin decoración, arrastrable con `core:window:allow-start-dragging`; incluye botón iniciar/pausar/reanudar |
 | Hover | 264×92 | **Pendiente F3:** se expande 150 ms tras entrar; colapsa 400 ms después de salir |
-| Switcher | 320×440 | **Pendiente F3:** se abre con clic en el tiempo; búsqueda y teclado |
+| Switcher | 320×440 (actual 320×360) | **Parcial F3:** se abre con clic en el caret; lista de tareas, alta local y selección. Pendientes búsqueda, proyectos y teclado |
 | Minimizado | 28×28 | **Pendiente F4:** solo icono/punto de estado |
 | Alerta contexto | Compacto + borde ámbar | **Pendiente F7:** no cambia tamaño ni foco |
 | Resumen | 560×620 | **Pendiente F4:** ventana normal, centrada, se puede minimizar |
@@ -161,7 +161,10 @@ Decisiones:
 - Anclaje: se conserva la esquina superior izquierda; si se sale del área de trabajo, se hace
   clamp al monitor más cercano. Soporte DPI por monitor.
 - `alwaysOnTop`, `skipTaskbar`, `decorations: false`, `transparent: true`, `focus: false` al crear.
-- El foco solo se toma cuando el usuario hace clic (búsqueda del switcher). Nunca por timers.
+- El arrastre nativo (`data-tauri-drag-region`) **no funciona** con el permiso por defecto de Tauri 2.12:
+  la capability debe incluir `core:window:allow-start-dragging`; el redimensionado del selector,
+  `core:window:allow-set-size`.
+- El foco solo se toma cuando el usuario hace clic (caret o búsqueda del switcher). Nunca por timers.
 - Pantalla completa (juegos/presentaciones): la ventana se oculta automáticamente (detección de
   `SHQueryUserNotificationState`), configurable.
 
@@ -220,15 +223,17 @@ Decisiones:
 
 **Implementado y verificado**
 - F1: monorepo Tauri 2.12 + React 19/TS/Vite 6 + SQLite WAL con migración embebida, CSP estricta,
-  CI escrita y build release (4.00 MB).
+  CI escrita y build release (actual 4.22 MB).
 - F2: `TimeEntry` con `recover_if_stale`; puertos `TimeEntries`/read models; casos de uso
   `start/pause/resume/close/recover_stale/today_totals`; repositorio SQLite con `switch`
-  transaccional; workspace `General` por defecto; comandos IPC y UI conectada; heartbeat 60 s.
+  transaccional; workspace `General` por defecto; heartbeat 60 s. Catálogo `list_tasks`/
+  `create_task` con alta local idempotente (`external_id = NULL`) y selector en la UI.
 - Presupuestos medidos: CPU inactiva 0.42 % de un núcleo; RAM privada total ~128 MB.
 
 **Pendiente**
-- Project/Task como entidades de dominio con CRUD y repositorios; `ActivityEvent`.
+- CRUD completo de `Project`/`Task` (editar, archivar, proyectos); `ActivityEvent`.
 - Detección de solapamientos, pruebas de propiedad/concurrencia y cobertura 80/70.
-- F3: switcher, menú contextual, hover, posición recordada y atajos.
+- F3: búsqueda incremental, selección por proyecto, hover, menú contextual, posición recordada,
+  temas y atajos.
 - F4: inactividad, resumen diario, tray, autostart y export CSV.
 - Primera ejecución del pipeline de Azure.
