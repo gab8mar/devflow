@@ -1,0 +1,62 @@
+trigger:
+  branches:
+    include: [main]
+pr:
+  branches:
+    include: [main]
+
+pool:
+  vmImage: windows-2022
+
+variables:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+steps:
+  - task: NodeTool@0
+    displayName: Node 24
+    inputs:
+      versionSpec: "24.x"
+
+  - script: |
+      rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+      rustup default stable
+    displayName: Rust stable
+
+  - script: echo "##vso[task.prependpath]%USERPROFILE%\.cargo\bin"
+    displayName: Add cargo to PATH
+
+  - task: Cache@2
+    displayName: Cache cargo registry
+    inputs:
+      key: 'cargo | "$(Agent.OS)" | Cargo.lock'
+      restoreKeys: |
+        cargo | "$(Agent.OS)"
+      path: $(USERPROFILE)\.cargo\registry
+
+  - script: npm ci
+    displayName: Install JS dependencies
+
+  - script: cargo fmt --all -- --check
+    displayName: Format check
+
+  - script: cargo clippy --workspace --all-targets -- -D warnings
+    displayName: Clippy
+
+  - script: cargo test --workspace
+    displayName: Rust tests
+
+  - script: npm run lint
+    displayName: ESLint
+
+  - script: npm run typecheck
+    displayName: TypeScript
+
+  - script: npm run test
+    displayName: UI tests
+
+  - script: npm audit --audit-level=high
+    displayName: NPM audit
+
+  - script: npm run build:nobundle
+    displayName: Build desktop app

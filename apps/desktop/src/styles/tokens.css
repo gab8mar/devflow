@@ -1,0 +1,32 @@
+:root {
+  color-scheme: dark;
+  --dt-bg: rgba(22, 27, 34, 0.92);
+  --dt-bg-solid: #161b22;
+  --dt-fg: #e6edf3;
+  --dt-muted: #8b949e;
+  --dt-border: #30363d;
+  --dt-accent: #58a6ff;
+  --dt-running: #3fb950;
+  --dt-paused: #d29922;
+  --dt-alert: #e3b341;
+  --dt-danger: #f85149;
+  --dt-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --dt-radius: 8px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --dt-bg: rgba(255, 255, 255, 0.92);
+    --dt-bg-solid: #ffffff;
+    --dt-fg: #1b1f24;
+    --dt-muted: #57606a;
+    --dt-border: #d0d7de;
+    --dt-accent: #0969da;
+    --dt-running: #1a7f37;
+    --dt-paused: #9a6700;
+    --dt-alert: #bf8700;
+    --dt-danger: #cf222e;
+    --dt-shadow: 0 4px 16px rgba(31, 35, 40, 0.15);
+  }
+}

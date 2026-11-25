@@ -1,0 +1,23 @@
+{
+  "name": "devtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/desktop",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm --workspace @devtime/desktop run tauri dev",
+    "build": "npm --workspace @devtime/desktop run tauri:build",
+    "build:web": "npm --workspace @devtime/desktop run build",
+    "build:nobundle": "npm --workspace @devtime/desktop run tauri:build:nobundle",
+    "lint": "npm --workspace @devtime/desktop run lint",
+    "typecheck": "npm --workspace @devtime/desktop run typecheck",
+    "test": "npm --workspace @devtime/desktop run test",
+    "check": "npm run lint && npm run typecheck && npm run test"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+target/
+coverage/
+reports/
+*.log
+.env
+.env.*
+!.env.example
+.codegraph/

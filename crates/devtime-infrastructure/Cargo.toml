@@ -1,0 +1,15 @@
+[package]
+name = "devtime-infrastructure"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+devtime-application = { path = "../devtime-application" }
+devtime-domain = { path = "../devtime-domain" }
+rusqlite = { version = "0.32", features = ["bundled"] }
+thiserror = "2"
+
+[dev-dependencies]
+tempfile = "3"
