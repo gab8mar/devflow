@@ -12,7 +12,8 @@ historial de actividad y búsqueda del switcher.
 
 Qué funciona hoy:
 - Píldora 132×28 always-on-top, arrastrable, con tiempo derivado de SQLite y botón iniciar/pausar/reanudar.
-- Selector de tareas 320×360 con uso reciente primero, tarea actual marcada y alta local.
+- Selector de tareas 320×440 con búsqueda sin acentos, agrupación por proyecto, teclado
+  (flechas/Enter/Esc), alta local y botón "Guardar y cambiar".
 - Persistencia de entradas (`running`/`paused`/`closed`) y cambio de tarea transaccional.
 - Recuperación tras cierre inesperado usando el último heartbeat (umbral 120 s) y heartbeat cada 60 s.
 - Totales diarios por proyecto/tarea (comando `get_today_totals`) y workspace `General` por defecto.

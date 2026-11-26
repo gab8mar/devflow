@@ -19,8 +19,9 @@
 - Frontend: **≥ 60 %** en hooks y lógica; componentes visuales por comportamiento.
 - Puerta de CI: falla si baja del umbral o si hay warnings de lint.
 - **Estado 2026-11-25:** umbrales definidos pero aún no medidos; la suite actual es 38 pruebas
-  Rust + 8 pruebas frontend (incluye catálogo/alta local y validación de títulos). La cobertura
-  se instrumentará con `cargo-llvm-cov` y `@vitest/coverage-v8` (pendiente F2).
+  Rust + 16 pruebas frontend (catálogo/alta local, validación de títulos, búsqueda sin acentos y
+  agrupación por proyecto). La cobertura se instrumentará con `cargo-llvm-cov` y
+  `@vitest/coverage-v8` (pendiente F2).
 
 ## 3. Casos críticos del dominio
 

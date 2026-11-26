@@ -107,8 +107,9 @@ Camino completo hasta v3.0: ~65 d-persona + 20 % de contingencia.
   etiqueta `Local`/`PWA` y botón `+ Nueva tarea local`.
 - [x] Alta local idempotente por título dentro de `Trabajo general`; `external_id` queda `NULL`
   para distinguirla de las tareas que importe el PWA.
-- [ ] Búsqueda incremental, selección por proyecto, "Guardar y cambiar", hover, menú contextual,
-  posición recordada, temas y atajos.
+- [x] Búsqueda incremental (título, proyecto y código, sin acentos), agrupación por proyecto,
+  navegación con flechas/Enter/Esc, doble clic para cambiar y botón "Guardar y cambiar".
+- [ ] Hover, menú contextual, posición recordada, temas y atajos.
 
 **Criterios de salida**
 - Cambiar de tarea en ≤ 2 clics y ≤ 3 s.

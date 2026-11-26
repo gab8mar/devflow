@@ -19,8 +19,8 @@ interface TimerPillProps {
   onToggle: () => void;
   onOpenPicker: () => void;
   onClosePicker: () => void;
-  onSelectTask: (taskId: string) => void;
-  onCreateTask: (title: string) => Promise<boolean>;
+  onApplyTask: (taskId: string) => void;
+  onCreateTask: (title: string) => Promise<TaskDto | null>;
 }
 
 export function TimerPill({
@@ -34,7 +34,7 @@ export function TimerPill({
   onToggle,
   onOpenPicker,
   onClosePicker,
-  onSelectTask,
+  onApplyTask,
   onCreateTask,
 }: TimerPillProps) {
   const [nowMs, setNowMs] = useState(() => Date.now());
@@ -46,7 +46,7 @@ export function TimerPill({
 
   useEffect(() => {
     const size = pickerOpen
-      ? new LogicalSize(320, 360)
+      ? new LogicalSize(320, 440)
       : new LogicalSize(132, 28);
     void getCurrentWindow()
       .setSize(size)
@@ -167,7 +167,7 @@ export function TimerPill({
           activeTaskId={active?.taskId ?? null}
           busy={tasksBusy}
           error={tasksError ?? error}
-          onSelect={onSelectTask}
+          onApply={onApplyTask}
           onCreate={onCreateTask}
           onClose={onClosePicker}
         />

@@ -5,6 +5,39 @@ Formato: fecha · fase · qué se hizo · por qué · dónde · siguiente.
 
 ---
 
+## 2026-11-25 · F3 — Búsqueda, agrupación por proyecto y "Guardar y cambiar"
+
+**Contexto:** el selector ya listaba tareas y permitía alta local, pero cambiaba de tarea con
+un solo clic y no tenía búsqueda ni agrupación; el diseño pedía confirmar con "Guardar y cambiar".
+
+**Qué se hizo**
+1. **Búsqueda incremental sin acentos:** `taskFilter.ts` normaliza NFD y filtra por título,
+   nombre de proyecto o código; consulta vacía devuelve todo.
+2. **Agrupación por proyecto:** lista con encabezado `CÓDIGO · Nombre` y punto de color;
+   el orden sigue siendo uso reciente con `Trabajo general` al final.
+3. **Interacción:** clic resalta, doble clic aplica, flechas mueven el resaltado, `Enter`
+   confirma, `Esc` cierra o cancela el alta. Botón "Guardar y cambiar" y `Guardar` deshabilitado
+   sin selección. La ventana pasa a **320×440** (objetivo de F3) y vuelve a 132×28 al aplicar.
+4. **Alta local:** crear una tarea ya no la inicia automáticamente; queda resaltada y el usuario
+   confirma con "Guardar y cambiar" (evita cambios accidentales).
+5. **Pruebas:** 8 pruebas nuevas de `normalizeText`/`filterTasks`/`groupTasksByProject`
+   (16 frontend en total); `npm run check` y build release (4.22 MB) en verde.
+
+**Por qué:** el flujo de dos pasos y la búsqueda son requisitos de F3 (≤ 2 clics y ≤ 3 s);
+la confirmación evita cerrar la tarea en curso por un clic accidental.
+
+**Dónde:** `apps/desktop/src/features/timer/{taskFilter.ts,taskFilter.test.ts,TaskPicker.tsx,
+TimerPill.tsx,timer.css}`, `apps/desktop/src/app/App.tsx`.
+
+**Nota de verificación:** el render del selector (búsqueda, grupo, tarea activa, botones) se
+verificó con captura de ventana; la interacción completa no se pudo automatizar porque el equipo
+estaba en uso y las ventanas cambiaban de monitor/foco. Pendiente de humo manual por el usuario.
+
+**Siguiente:** contrato del PWA/Timesheet; luego hover, menú contextual, posición recordada,
+temas y atajos.
+
+---
+
 ## 2026-11-25 · F2–F3 — Arrastre real, catálogo de tareas y selector
 
 **Contexto:** la píldora se arrastraba solo en desarrollo; en release la región

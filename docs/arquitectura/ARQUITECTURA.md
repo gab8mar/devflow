@@ -149,7 +149,7 @@ apagado toda la noche.
 |--------|------------------|----------------|
 | Compacto | 132×28 | **Implementado:** always-on-top, sin decoración, arrastrable con `core:window:allow-start-dragging`; incluye botón iniciar/pausar/reanudar |
 | Hover | 264×92 | **Pendiente F3:** se expande 150 ms tras entrar; colapsa 400 ms después de salir |
-| Switcher | 320×440 (actual 320×360) | **Parcial F3:** se abre con clic en el caret; lista de tareas, alta local y selección. Pendientes búsqueda, proyectos y teclado |
+| Switcher | 320×440 | **Implementado F3 (núcleo):** se abre con clic en el caret; búsqueda sin acentos, agrupación por proyecto, alta local, teclado (flechas/Enter/Esc) y "Guardar y cambiar". Pendientes hover, menú contextual, posición y temas |
 | Minimizado | 28×28 | **Pendiente F4:** solo icono/punto de estado |
 | Alerta contexto | Compacto + borde ámbar | **Pendiente F7:** no cambia tamaño ni foco |
 | Resumen | 560×620 | **Pendiente F4:** ventana normal, centrada, se puede minimizar |
@@ -233,7 +233,7 @@ Decisiones:
 **Pendiente**
 - CRUD completo de `Project`/`Task` (editar, archivar, proyectos); `ActivityEvent`.
 - Detección de solapamientos, pruebas de propiedad/concurrencia y cobertura 80/70.
-- F3: búsqueda incremental, selección por proyecto, hover, menú contextual, posición recordada,
-  temas y atajos.
+- F3: hover, menú contextual, posición recordada, temas y atajos (selector con búsqueda,
+  agrupación por proyecto, teclado y "Guardar y cambiar" ya implementados).
 - F4: inactividad, resumen diario, tray, autostart y export CSV.
 - Primera ejecución del pipeline de Azure.

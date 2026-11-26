@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TimerPill } from "../features/timer/TimerPill";
 import { useTasks } from "../features/timer/useTasks";
 import { useTimer } from "../features/timer/useTimer";
+import type { TaskDto } from "../lib/ipc/commands";
 
 export function App() {
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -20,7 +21,7 @@ export function App() {
     void refresh();
   }
 
-  async function selectTask(taskId: string) {
+  async function applyTask(taskId: string) {
     if (taskId === snapshot?.active?.taskId) {
       setPickerOpen(false);
       return;
@@ -34,15 +35,12 @@ export function App() {
     setPickerOpen(false);
   }
 
-  async function createTask(title: string): Promise<boolean> {
+  async function createTask(title: string): Promise<TaskDto | null> {
     try {
-      const task = await create(title);
-      await start(task.id);
+      return await create(title);
     } catch {
-      return false;
+      return null;
     }
-    setPickerOpen(false);
-    return true;
   }
 
   return (
@@ -57,7 +55,7 @@ export function App() {
       onToggle={toggle}
       onOpenPicker={openPicker}
       onClosePicker={() => setPickerOpen(false)}
-      onSelectTask={selectTask}
+      onApplyTask={applyTask}
       onCreateTask={createTask}
     />
   );

@@ -94,7 +94,7 @@ devflow/
 │  ├─ src/
 │  │  ├─ main.tsx
 │  │  ├─ app/App.tsx
-│  │  ├─ features/timer/{TimerPill.tsx,TaskPicker.tsx,useTimer.ts,useTasks.ts,timer.css}
+│  │  ├─ features/timer/{TimerPill.tsx,TaskPicker.tsx,taskFilter.ts,taskFilter.test.ts,useTimer.ts,useTasks.ts,timer.css}
 │  │  ├─ lib/format/{duration.ts,duration.test.ts}
 │  │  ├─ lib/ipc/{commands.ts,errors.ts}
 │  │  ├─ lib/timer/{elapsed.ts,elapsed.test.ts}

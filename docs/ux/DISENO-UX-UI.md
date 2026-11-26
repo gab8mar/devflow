@@ -74,10 +74,12 @@ siguen pendientes de F3.
 - La tarea actual aparece marcada con ✓ y su tiempo acumulado.
 - "＋ Nueva tarea" discreto al final de la lista (MVP: alta rápida de título).
 
-**Implementado parcial (2026-11-25):** selector de 320×360 con lista de tareas activas, tarea
-actual marcada, uso reciente primero, etiqueta `Local`/`PWA` y alta local con `Enter`/`Crear`.
-Al seleccionar, la ventana vuelve a 132×28. Pendientes: búsqueda, lista de proyectos, botón
-"Guardar y cambiar" y navegación por teclado.
+**Implementado (2026-11-25):** selector de 320×440 con búsqueda por título, proyecto o código
+(sin distinguir acentos ni mayúsculas), tareas agrupadas por proyecto, uso reciente primero,
+tarea activa marcada con ✓, etiqueta `Local`/`PWA`, alta local con `Enter`/`Crear` y botón
+"Guardar y cambiar" (Enter). Flechas mueven el resaltado, `Esc` cierra (o cancela el alta),
+doble clic cambia de inmediato y la ventana vuelve a 132×28 al confirmar. Pendientes: hover,
+menú contextual, posición recordada, temas y atajos.
 
 ### 2.4 Minimizado
 
